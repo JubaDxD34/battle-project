@@ -1,1 +1,95 @@
 # battle-project
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Batalha Pokémon</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      text-align: center;
+      padding: 20px;
+    }
+    .pokemon {
+      margin: 20px;
+    }
+    .pokemon img {
+      height: 150px;
+    }
+    .vida {
+      height: 20px;
+      width: 200px;
+      background-color: #ccc;
+      margin: 10px auto;
+      position: relative;
+    }
+    .barra-vida {
+      height: 100%;
+      background-color: #4caf50;
+      width: 100%;
+      transition: width 0.3s;
+    }
+    .mensagem {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Batalha Pokémon</h1>
+
+  <div class="pokemon" id="player">
+    <h2>Pikachu</h2>
+    <img src="https://i.pinimg.com/originals/e9/38/d1/e938d18fc07a3ffd16b4864ef2f1308f.gif" alt="Pikachu">
+    <div class="vida"><div class="barra-vida" id="vidaPlayer"></div></div>
+    <button onclick="atacar()">Ataque Elétrico</button>
+  </div>
+
+  <div class="pokemon" id="inimigo">
+    <h2>Charizard</h2>
+    <img src="https://media.tenor.com/9nBgEcu8e2IAAAAj/charizard-pokemon.gif" alt="Charizard">
+    <div class="vida"><div class="barra-vida" id="vidaInimigo"></div></div>
+  </div>
+ 
+  <div class="mensagem" id="mensagemCombate">Prepare-se para a batalha!</div>
+  
+<audio id="audioBatalha" src="Pokemon FireRed_LeafGreen Music- Wild Pokemon Battle(MP3_160K).mp3" autoplay loop></audio>
+
+  <script> 
+  
+    let vidaPlayer = 100;
+    let vidaInimigo = 100;
+
+    function atacar() {
+      const dano = Math.floor(Math.random() * 20) + 5;
+      vidaInimigo -= dano;
+      if (vidaInimigo < 0) vidaInimigo = 0;
+
+      document.getElementById("vidaInimigo").style.width = vidaInimigo + "%";
+      document.getElementById("mensagemCombate").textContent = `Pikachu causou ${dano} de dano!`;
+
+      if (vidaInimigo > 0) {
+        setTimeout(() => contraAtaque(), 1000);
+      } else {
+        document.getElementById("mensagemCombate").textContent = "Charizard foi derrotado!";
+      }
+    }
+
+    function contraAtaque() {
+      const dano = Math.floor(Math.random() * 15) + 5;
+      vidaPlayer -= dano;
+      if (vidaPlayer < 0) vidaPlayer = 0;
+
+      document.getElementById("vidaPlayer").style.width = vidaPlayer + "%";
+      document.getElementById("mensagemCombate").textContent += ` Charizard revidou com ${dano} de dano!`;
+
+      if (vidaPlayer <= 0) {
+        document.getElementById("mensagemCombate").textContent = "Pikachu foi derrotado!";
+      }
+    }
+  </script>
+
+</body>
+</html>
